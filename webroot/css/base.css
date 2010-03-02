@@ -1,0 +1,434 @@
+/* GLOBAL --------------------------------------------- */
+
+body
+{
+    font-family: Arial;
+    margin: 0px auto;
+    text-align: center;
+}
+a
+{
+    color: darkred;
+    text-decoration: none;
+}
+a:hover
+{
+    text-decoration: underline;
+}
+div#wrapper
+{
+    margin: auto;
+    margin-top: 10px;
+    width: 690px;
+    text-align: left;
+}
+div#content p
+{
+    text-align: justify;	
+}
+h4
+{
+    margin: 0px 15px;
+    font-size: 26px;
+    text-align: right;
+    margin-left: 155px;
+}
+h1
+{
+    margin: 2px 10px;
+    font-size: 22px;
+    color: red;
+}
+h2
+{
+	margin: 2px 10px;
+    font-size: 22px;
+    color: gray;  
+}
+h3
+{
+	margin: 5px 10px;
+    font-size: 16px;
+    text-align: left;
+    border-bottom: 1px dotted lightgray;   
+}
+h3 a:hover
+{
+	color: black;
+	text-decoration: none;
+}
+p.clearboth
+{
+    clear: both;
+}
+a img
+{
+	border: none;
+}
+
+/* TOP NAVIGATION ------------------------------------------------- */
+
+div#navigation
+{
+    margin: 5px 10px;
+    text-align: right;
+}
+div#navigation p
+{
+    padding: 0px;
+    margin: 0px;
+}
+div#navigation a
+{
+    font-size: 10px;
+    text-decoration: None;
+    border-bottom: 1px dotted lightgray;
+    padding: 1px;
+    margin: 0 3px 2px 3px;
+    color: gray;
+    font-weight: bold;
+}
+div#navigation a:hover
+{
+    border-bottom: 1px dotted black;
+    color: black;
+}
+
+/* SIDEBAR ----------------------------------------------------------- */
+div#sidebar
+{
+    margin-top: 10px;
+    width: 150px;
+    float: left;
+    text-align: left;
+    margin-left: -690px;
+}
+div#sidebar div.section
+{
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+div#sidebar h3
+{
+	padding: 4px 0px 0px 6px;
+	margin: 1px 0px 0px 7px;
+	font-size: 12px;
+	border: none;
+}
+div#sidebar h3.header
+{
+	font-size: 14px;
+    font-weight: bold;
+    margin: 3px 3px 6px 0px;
+    text-align: right;
+}
+div#sidebar a
+{
+    padding: 4px 5px 1px 5px;
+    color: gray;
+    font-weight: normal;
+    display: block;
+    border-bottom: 1px dotted gray;
+    margin: 0px;
+    margin-left: 8px;
+}
+div#sidebar a:hover, div#sidebar a.selected
+{
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    border-left: 8px solid #A0A0A0;
+    background: #E8E8E8;
+    margin-left: 0px;
+}
+
+/* HEADER ---------------------------------------------------------------- */
+
+div#header
+{
+    
+}
+div#header h1
+{
+	text-align: right;
+	margin: 0px 3px;
+}
+div#header h1 a img
+{
+    text-decoration: none;	
+    border: none;
+}
+
+/* FOOTER ----------------------------------------------------------------- */
+
+div#footer
+{
+    margin: 10px 15px;
+}
+div#footer p
+{
+    text-align: right;
+    font-size: 10px;
+    color: gray;
+}
+
+/* CONTENT ----------------------------------------------------------------- */
+
+div#content
+{
+    float: left;
+    width: 540px;
+    margin-left: 150px;
+    min-height: 300px;
+}
+div#content p
+{
+    font-size: 12px;
+    margin: 10px;
+}
+div#content h3
+{
+	margin: 10px;
+    border-bottom: 1px dotted lightgray;    
+}
+div#content div.conversation
+{
+    margin: 15px 10px 20px 10px;
+    border-top: 1px solid black;
+}
+div#content div.conversation div.conversation_info
+{
+	border-top: 1px solid black;
+    margin: 0px;
+}
+div#content div.conversation div.conversation_info p
+{
+	color: gray;
+    text-align: right;
+    margin: 0px;
+    padding: 2px;
+    font-size: 10px;
+}
+div#content div.conversation div.conversation_info p a
+{
+	padding: 2px 5px;
+    color: gray;
+    font-weight: bold;	
+}
+div#content div.tweet
+{
+    margin: 0px;
+    padding: 1px;
+    color: #303030;
+    border-bottom: 1px dotted gray;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+div#content div.bot_tweet
+{
+    color: #404040;
+}
+div#content div.tweet p
+{
+    margin: 5px;
+}
+div#content div.tweet p.tweet
+{
+    color: inherit;
+    font-size: 12px;
+}
+div#content div.tweet div.links
+{
+   float: right;
+   margin-left: 5px;
+   margin-bottom: 5px;
+   width: 30px;
+}
+div#content div.tweet div.links p
+{
+    font-size: 9px;
+    margin: 0px;
+    text-align: right;
+}
+div#content div.tweet div.links p a
+{
+	display:block;
+	float: right;
+    color: inherit;
+    margin: 1px;
+    margin-left: 2px;
+    padding: 0px;
+    width: 10px;
+    height: 10px;
+    background-repeat: no-repeat;
+}
+div#content div.tweet div.links p a:hover
+{
+	background-color: lightgray;
+	border: 1px solid gray;
+	margin: 0px;
+	margin-left: 1px;
+}
+div#content div.tweet div.links p a.retweet
+{
+	background-image:url('/img/retweet_icon_small.gif');
+}
+div#content div.tweet div.links p a.twitter
+{
+    background-image:url('/img/twitter_icon_small.gif');
+}
+div#content div.tweet p.tweet span.tweet_text a
+{
+    color: inherit;
+    font-style: italic;
+}
+div#content span.tweet_author
+{
+    font-weight: bold;
+    color: black;
+    font-size: 14px;
+}
+div#content span.tweet_author a
+{
+    text-decoration: none;
+    color: black;
+}
+div#content span.tweet_author a:hover
+{
+    text-decoration: underline;
+}
+div#content div.tweet p.user
+{
+    font-size: 10px;
+    float: left;
+    margin: 2px 5px;
+    font-weight: bold;
+}
+div#content div.tweet p.user a
+{
+    text-decoration: none;
+}
+div#content p.question
+{
+    font-weight: bold;
+}
+div#content p.answer
+{
+    font-style: italic;
+}
+div#content p.name
+{
+    font-weight: bold;
+    text-size: 14px;
+}
+div#content div.contact_info
+{
+    margin: 10px 30px;
+    border: 1px dotted lightgray;
+    padding: 3px;
+}
+
+div#content div.contact_info p.contact
+{
+    margin-left: 30px;
+}
+div#content div.contact_info p.name
+{
+    font-size: 14px;
+}
+
+div#content div.post
+{
+    margin: 15px 5px 15px 10px;
+}
+div#content div.post h3
+{
+	margin: 0px;
+    font-size: 16px;
+    text-align: left;
+    border-bottom: 1px dotted lightgray;	
+}
+div#content div.post h2 a:hover
+{
+    text-decoration: none;	
+}
+div#content div.post div.details
+{
+    margin: 2px 0px;
+    font-size: 10px;	
+}
+div#content div.post div.details p
+{
+	margin: 0px;
+	padding: 0px;
+    font-size: 10px;	
+}
+div#content div.post div.details p.date
+{
+    float: right;	
+}
+div#content div.post div.details p.author
+{
+    float: left;   
+}
+div#content div.post p, div#content div.post ul, div#content div.post ol
+{
+    font-size: 12px;
+    margin: 10px 0px;
+}
+div#content div.post p
+{
+    text-align: justify;	
+}
+div#content p#breadcrumbs
+{
+    font-size: 10px;
+    color: gray;
+}
+div#content p#breadcrumbs span.current
+{
+    font-weight: bold;
+}
+div#content div.bot p
+{
+	text-align: justify;
+}
+/* PAGING ----------------------------------------------------------- */
+
+div#content div#paging
+{
+    margin: 10px;
+}
+div#content div#paging p
+{
+	text-align: center;
+}
+div#content div#paging p.paging_label
+{
+    font-size: 10px;
+}
+div#content div#paging p.paging_buttons
+{
+    font-size: 12px;
+}
+div#content div#paging p.paging_buttons a
+{
+    border: 1px solid lightgray;
+    font-weight: bold;
+    color: black;
+    padding: 2px 5px;
+    margin: 2px 0px 2px 3px;
+    text-decoration: none;
+    text-size: 12px;
+}
+div#content div#paging p.paging_buttons a:hover
+{
+    border: 1px solid gray;
+    background: lightgray;
+    color: black;
+}
+div#content div#paging p.paging_buttons span
+{
+    font-weight: bold;
+    padding: 0px 3px;
+}

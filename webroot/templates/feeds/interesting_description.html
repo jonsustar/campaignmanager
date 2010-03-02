@@ -1,0 +1,6 @@
+{% if obj.description %}
+{{ obj.description }
+{% else %}
+{% load humanize %}
+A {{ obj.tweet_set.count|apnumber }} tweet {{obj}}
+{% endif %}
