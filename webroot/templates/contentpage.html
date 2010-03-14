@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h1>{{ currentpage.title }}</h1>
+    <h2>[ Content Page ]</h2>
+{% endblock %}
+
+{% block sidebar %}
+    
+{% endblock %}
+
+{% block content %}
+    {{ currentpage.main_content }}
+{% endblock %}

@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>
+            {% block title %}
+                Website Administration
+            {% endblock %}
+        </title>
+        <link href="/css/base.css" rel="stylesheet" type="text/css" /> 
+    </head>
+    <body>
+        <div id=wrapper>
+            <div id=navigation>
+                {% block navigation %}
+
+                {% endblock %}
+            </div>
+            <div id=header>
+                {% block header %}
+                    <h1>Website Administration</h1>
+                {% endblock %}
+            </div>
+            <div id=content>
+                {% block content %}
+                
+                {% endblock %}
+            </div>
+            <div id=sidebar>
+                {% block sidebar %}
+                
+                {% endblock %}
+            </div>
+            <div id=footer>
+                {% block footer %}
+                
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+</html>

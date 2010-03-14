@@ -1,0 +1,21 @@
+{% extends "baseadmin.html" %}
+
+{% block header %}
+    <h1>Website Administration</h1>
+    <h2>Account Information</h2>
+{% endblock %}
+
+{% block sidebar %}
+    
+{% endblock %}
+
+{% block content %}
+
+	<form action="/admin/account/edit" method="post">
+	   <table>
+	       {{ form.as_table }}
+	   </table>
+	   <input type="submit" value="Submit" />
+	</form>
+
+{% endblock %}

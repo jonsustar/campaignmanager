@@ -1,0 +1,85 @@
+{% extends "baseadmin.html" %}
+
+{% block header %}
+    <h1>Website Administration</h1>
+    <h2>Home</h2>
+{% endblock %}
+
+{% block sidebar %}
+    
+{% endblock %}
+
+{% block content %}
+
+    <h3>
+        Account Information [ <a href="/admin/account/edit">Edit</a> ]
+    </h3>
+    <table>
+        <tr>
+            <td class=title>
+                Name:
+            </td>
+            <td>
+                {{ currentaccount.name }}
+            </td>
+        </tr>
+        <tr>
+            <td class=title>
+                Description:    
+            </td>
+            <td>
+                {{ currentaccount.description }}
+            </td>
+        </tr>
+        <tr>
+            <td class=title>
+                
+            </td>
+            <td>
+            
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <h3>
+        Pages
+    </h3>
+    <table id=pages>
+        <tr>
+            <th>
+                Ordinal
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                View
+            </th>
+            <th>
+                Edit
+            </th>
+        </tr>
+        {% for page in currentaccount.pages %}
+            <tr>
+                <td>
+                    {{ page.ordinal }}
+                </td>
+                <td>
+                    {{ page.title }}
+                </td>
+                <td>
+                    {{ page.description }}
+                </td>
+                <td>
+                    <a href="{{ page.get_absolute_url }}">View</a>
+                </td>
+                <td>
+                    <a href="/admin/page{{ page.get_absolute_url }}/edit">Edit</a>
+                </td>
+            </tr>
+        {% endfor %} 
+    </table>
+{% endblock %}

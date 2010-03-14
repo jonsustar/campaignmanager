@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h1>{{ currentpage.title }}</h1>
+    <h2>[ Post Page ]</h2>
+{% endblock %}
+
+{% block sidebar %}
+    
+{% endblock %}
+
+{% block content %}
+    {% if currentpage.posts %}
+        {% for post in currentpage.posts %}
+            <div>
+                <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+                <p>{{ post.content }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No posts</p>
+    {% endif %}
+{% endblock %}

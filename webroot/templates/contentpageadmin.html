@@ -1,0 +1,19 @@
+{% extends "baseadmin.html" %}
+
+{% block header %}
+    <h1>Website Administration</h1>
+    <h2>{{ currentpage.title }}</h2>
+{% endblock %}
+
+{% block sidebar %}
+    
+{% endblock %}
+
+{% block content %}
+    <form action="/admin/page{{ currentpage.get_absolute_url }}/edit" method="post">
+       <table>
+           {{ form.as_table }}
+       </table>
+       <input type="submit" value="Submit" />
+    </form>
+{% endblock %}

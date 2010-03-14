@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h1>{{ currentpage.title }}</h1>
+    <h2>[ Post ]</h2>
+{% endblock %}
+
+{% block sidebar %}
+    
+{% endblock %}
+
+{% block content %}
+	<div>
+	    <h3>{{ currentpost.title }}</h3>
+	    <p>{{ currentpost.content }}</p>
+	</div>
+{% endblock %}
