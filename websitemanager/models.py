@@ -6,10 +6,21 @@ from django.db.models import permalink
 from django.http import HttpRequest
 
 class Account(models.Model):
-    name = models.CharField(max_length=300)
+    name = models.CharField(max_length=150)
+    description = models.CharField(max_length=500)
+    is_enabled = models.BooleanField(default=True)
     
     def __unicode__(self):
         return self.name
+    
+    def domains(self):
+        return self.domain_set.all()
+    
+    def users(self):
+        return self.user_set.all()
+    
+    def pages(self):
+        return self.page_set.order_by('ordinal')
     
     def GetCurrentAccount(request):
         host = request.get_host()
@@ -18,18 +29,41 @@ class Account(models.Model):
         return Account.objects.get(id=1)
     
     def GetPage(self, current_path):
-        return Page.objects.get(account=self, path=current_path)
+        print current_path
+        return Page.objects.get(account=self, slug=current_path)
     
     GetCurrentAccount = staticmethod(GetCurrentAccount)
+
+class AccountUser(User):
+    account = models.ForeignKey(Account)
 
 class Page(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField()
     description = models.TextField()
     account = models.ForeignKey(Account)
+    ordinal = models.IntegerField(default=0)
+    is_enabled = models.BooleanField(default=True)
     
     def __unicode__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return "/" + self.slug
+        
+    def Cast(self):
+        page = None
+        try:
+            page = self.contentpage
+        except:
+            try:
+                page = self.eventpage
+            except:
+                try:
+                    page = self.postpage
+                except:
+                    page = self
+        return page
     
 class ContentPage(Page):
     main_content = models.TextField()
@@ -49,6 +83,12 @@ class Event(models.Model):
 
 class PostPage(Page):
     posts_per_page = models.IntegerField()
+    
+    def posts(self):
+        return self.post_set.all()
+    
+    def GetPost(self, currentslug):
+        return self.post_set.filter(slug=currentslug)[0]
 
 class Post(models.Model):
     author = models.ForeignKey(User)
@@ -63,10 +103,9 @@ class Post(models.Model):
     
     def author_name(self):
         return self.author.first_name + " " + self.author.last_name
-    
-    @models.permalink
+
     def get_absolute_url(self):
-        return ('post_view', [self.slug])
+        return "/" + self.page.slug + "/post/" + self.slug
     
 class Domain(models.Model):
     name = models.CharField(max_length=50)

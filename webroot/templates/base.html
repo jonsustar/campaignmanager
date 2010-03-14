@@ -1,23 +1,42 @@
 <html>
     <head>
-        <meta name="description" content="{{ page.description }}" >
-        <meta name="keywords" content="{{ page.keywords }}" >
-        <title>{{ page.title }}</title>
+        <title>
+            {% block title %}
+                {{ currentpage.title }}
+            {% endblock %}
+        </title>
         <link href="/css/base.css" rel="stylesheet" type="text/css" /> 
     </head>
     <body>
         <div id=wrapper>
+            <div id=navigation>
+                {% block navigation %}
+                    <p>| 
+                        {% for page in currentaccount.pages %}
+                            <a href="{{ page.get_absolute_url }}">{{ page.title }}</a> |                        
+                        {% endfor %}
+                    </p>
+                {% endblock %}
+            </div>
             <div id=header>
-                {{ page.title }}
+                {% block header %}
+                    <h1>{{ currentpage.title }}</h1>
+                {% endblock %}
             </div>
             <div id=content>
-             
+                {% block content %}
+                
+                {% endblock %}
             </div>
             <div id=sidebar>
-              
+                {% block sidebar %}
+                
+                {% endblock %}
             </div>
             <div id=footer>
-               
+                {% block footer %}
+                
+                {% endblock %}
             </div>
         </div>
     </body>
