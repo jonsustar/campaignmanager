@@ -1,0 +1,163 @@
+body
+{
+    font-family: Arial;
+}
+
+a
+{
+    color: darkred;
+    text-decoration: none;
+}
+
+a:hover
+{
+    color: black;
+}
+
+h1
+{
+    font-size: 18px;
+    margin: 8px;
+}
+
+h2
+{
+    font-size: 14px;
+    color: darkgray;
+    margin: 8px;
+}
+
+div#wrapper
+{
+    margin: auto;
+    width: 600px;
+}
+
+div#header
+{
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+
+div#navigation
+{
+    text-align: right;
+}
+
+div#navigation p
+{
+    margin: 4px;
+    font-size: 12px;
+}
+
+div#navigation p a
+{
+    background: lightgray;
+    padding: 4px 6px;
+    font-weight: bold;
+}
+
+div#navigation p a:hover
+{
+    background: darkgray;
+}
+
+div#content div.section
+{
+    border: 1px solid lightgray;
+    margin: 10px;
+}
+
+div#content div.section h3
+{
+    font-size: 14px;
+    float: left;
+    margin: 0px;
+}
+
+div#content div.section p
+{
+	margin: 5px;
+	font-size: 12px;
+}
+
+div#content div.section div.section_header
+{
+	border-bottom: 1px dotted lightgray;
+    margin: 0px;
+    padding: 2px 5px;
+}
+
+div#content div.section h4
+{
+    font-size: 14px;
+    float: right;
+    margin: 0px;
+    font-weight: normal;	
+}
+
+div#content div.section p.button
+{
+    text-align: right;
+    margin: 5px;	
+}
+
+div#content div.section p.button input
+{
+	font-weight: bold;
+	border: 2px solid gray;
+	padding: 2px;
+}
+
+div#content div.section h4 a
+{
+    font-weight: bold;	
+}
+
+table
+{
+    font-size: 12px;
+    margin: 5px;	
+    width: 98%;
+}
+
+table th
+{
+    font-weight: bold;
+    text-align: left;
+    background: lightgray;
+    border-bottom: 1px solid gray;
+    border-right: 1px solid gray;
+}
+
+table th, td
+{
+    padding: 2px 8px;
+    vertical-align: top;
+}
+
+p.clearboth
+{
+    clear: both;
+}
+
+input
+{
+    border: 1px solid lightgray;
+}
+
+textarea
+{
+    border: 1px solid lightgray;
+    padding: 3px;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+
+div#content table td ul.errorlist li
+{
+    color: red;
+    font-weight: bold;
+    font-size: 12px;
+}  

@@ -1,6 +1,7 @@
 # Django settings for twibbots_django project.
 import os
 
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -28,7 +29,9 @@ TIME_ZONE = 'America/Chicago'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
-SITE_ID = 4
+SITE_ID = 1
+
+#LOGIN_REDIRECT_URL = '/admin/controlpanel'
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -90,6 +93,9 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'tinymce',
     'campaignmanager.websitemanager',
+    #'pil'
+    #'Image',
+    #'filebrowser'
 )
 
 BASE_TITLE = "Twibbots: Twitter Bots with an attitude"
@@ -100,4 +106,6 @@ TINYMCE_JS_ROOT = '/js/tiny_mce'
 TINYMCE_DEFAULT_CONFIG = {
     'theme': "advanced",
 }
+
+TINYMCE_FILEBROWSER = True
 

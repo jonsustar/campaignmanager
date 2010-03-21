@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h1>{{ currentpage.title }}</h1>
+    <h2>[ Event Page ]</h2>
+{% endblock %}
+
+{% block sidebar %}
+    
+{% endblock %}
+
+{% block content %}
+    {% if currentpage.events %}
+        {% for event in currentpage.events %}
+            <div>
+                <h3><a href="{{ event.get_absolute_url }}">{{ event.name }}</a></h3>
+                <p>{{ event.description }}</p>
+                {% if event.location_name or event.location_address %}
+                    <p><b>Located at:</b> 
+                        {% if event.location_name %}
+                            {{ event.location_name }}
+                        {% endif %}
+                        {% if event.location_name or event.location_address %}
+                            -  
+                        {% endif %}
+                        {% if event.location_name or event.location_address %}
+                            {{ event.location_address }}
+                        {% endif %}
+                        {% if event.location_url %}
+                            (<a href="{{ event.location_url }}">Link</a>)
+                        {% endif %}
+                    </p>
+                {% endif %}
+                <p>{{ event.start_time }}
+                {% if event.end_time %}
+                    - {{ event.end_time }}
+                {% endif %}
+                </p>
+    <!--             
+    name = models.CharField(max_length=300)
+    slug = models.SlugField()
+    description = models.TextField(blank=True, null=True)
+    location_name = models.CharField(max_length=300, blank=True, null=True)
+    location_address = models.CharField(max_length=300, blank=True, null=True)
+    location_url = models.CharField(max_length=200, blank=True, null=True)
+    website_url = models.CharField(max_length=200, blank=True, null=True)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField(blank=True, null=True)
+    contact_name = models.CharField(max_length=50, blank=True, null=True)
+    contact_email = models.CharField(max_length=100, blank=True, null=True)
+    page = models.ForeignKey(EventPage)
+    is_published = models.BooleanField(default=True)
+     -->
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No Events</p>
+    {% endif %}
+{% endblock %}

@@ -2,41 +2,48 @@
     <head>
         <title>
             {% block title %}
-                {{ currentpage.title }}
+                {{ currentaccount.name }}: {{ currentpage.title }}
             {% endblock %}
         </title>
         <link href="/css/base.css" rel="stylesheet" type="text/css" /> 
     </head>
     <body>
         <div id=wrapper>
+            <div id=header>
+
+            </div>
             <div id=navigation>
                 {% block navigation %}
-                    <p>| 
+                    <p>
                         {% for page in currentaccount.pages %}
-                            <a href="{{ page.get_absolute_url }}">{{ page.title }}</a> |                        
+                            <a href="{{ page.get_absolute_url }}"{% ifequal page.slug currentpage.slug %}class=active{% endifequal %}>{{ page.title }}</a>                      
                         {% endfor %}
                     </p>
                 {% endblock %}
             </div>
-            <div id=header>
-                {% block header %}
-                    <h1>{{ currentpage.title }}</h1>
-                {% endblock %}
-            </div>
             <div id=content>
-                {% block content %}
+                {% if has_side_content %}
+	                <div id=side_content>
+	                {% block side_content %}
+	                
+	                {% endblock %}
+	                </div>
+                {% endif %}
+                <div id=main_content>
+                    <h1>{{ currentpage.title }}</h1>
+	                    {% block content %}
                 
-                {% endblock %}
-            </div>
-            <div id=sidebar>
-                {% block sidebar %}
-                
-                {% endblock %}
+                        {% endblock %}
+                </div>
             </div>
             <div id=footer>
-                {% block footer %}
+                <div id=campaign_box>
+                    <p>Paid for by John Doe</p>
+                    <P>123 Main Street, Cleveland, OH</p>
+                                    {% block footer %}
                 
                 {% endblock %}
+                </div>
             </div>
         </div>
     </body>

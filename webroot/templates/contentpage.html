@@ -5,10 +5,10 @@
     <h2>[ Content Page ]</h2>
 {% endblock %}
 
-{% block sidebar %}
-    
+{% block content %}
+    {{ currentpage.main_content|safe }}
 {% endblock %}
 
-{% block content %}
-    {{ currentpage.main_content }}
+{% block side_content %}
+    {{ currentpage.side_content|safe }}
 {% endblock %}

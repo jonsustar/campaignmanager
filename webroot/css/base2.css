@@ -1,0 +1,50 @@
+/* GLOBAL --------------------------------------------- */
+
+body
+{
+    font-family: Arial;
+    margin: 0px auto;
+    text-align: center;
+}
+a
+{
+    color: darkred;
+    text-decoration: none;
+}
+a:hover
+{
+    text-decoration: underline;
+}
+div#wrapper
+{
+    margin: auto;
+    margin-top: 10px;
+    width: 690px;
+    text-align: left;
+}
+table#pages
+{
+    margin: 5px;
+    font-size: 12px;
+}
+table#pages tr
+{
+
+}
+table#pages th
+{
+    text-align: left;
+    background: lightgray;
+    padding: 4px 8px;
+}
+table#pages td
+{
+	margin: 0px;
+    padding: 4px 8px;
+    border-bottom: 1px dotted gray; 
+}
+table td.title
+{
+    font-weight: bold;
+    padding-right: 10px;
+}

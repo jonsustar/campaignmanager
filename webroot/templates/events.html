@@ -1,0 +1,56 @@
+{% extends "adminbase.html" %}
+
+{% block header %}
+    <h1>Website Administration</h1>
+    <h2>Events</h2>
+{% endblock %}
+
+{% block sidebar %}
+    
+{% endblock %}
+
+{% block content %}
+    <div class=section>
+    <div class=section_header>
+	    <h3>
+	        Events
+	    </h3>
+	    <h4>
+	       <a href="{{ currentpage.get_admin_add_event_url }}">Add new event</a>
+	    </h4>
+	    <p class=clearboth></p>
+	    </div>
+	    <table id=pages>
+	        <tr>
+	            <th>
+	               Name
+	            </th>
+	            <th>
+	               
+	            </th>
+	            <th>
+	               
+	            </th>
+	        </tr>
+	        {% for event in currentpage.events %}
+	            <tr>
+	                <td>
+	                    {{ event.name }}
+	                </td>
+	                <td>
+	                    {{ event }}
+	                </td>
+	                <td>
+	                    {{ event }}
+	                </td>
+	                <td>
+	                    <a href="{{ event.get_absolute_url }}">View</a>
+	                </td>
+	                <td>
+	                    <a href="{{ event.get_admin_edit_url }}">Edit</a>
+	                </td>
+	            </tr>
+	        {% endfor %} 
+	    </table>
+    </div>
+{% endblock %}

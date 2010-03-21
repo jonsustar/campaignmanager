@@ -1,5 +1,4 @@
 from campaignmanager.websitemanager.models import *
-from campaignmanager.websitemanager.forms import *
 from django.template import Context, loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
@@ -7,39 +6,38 @@ from django.core.paginator import Paginator
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
 
-def home(request):
-    account = Account.GetCurrentAccount(request)
-    
-    t = loader.get_template('base.html')
-    c = None
-    c = Context({
-        'posts' : None, 
-        'active_bots' : None,
-        'breadcrumbs' : None,
-        'title' : account.name
-    })
-    return HttpResponse(t.render(c))
-
 def page(request, path):
     currentaccount = Account.GetCurrentAccount(request)
     currentpage = currentaccount.GetPage(path).Cast()
+    has_side_content = False;
     #allpages = account.pages
     
     templatefile = 'base.html'
     
     if type(currentpage) == type(ContentPage()):
         templatefile = 'contentpage.html'
+        has_side_content = True
     else:
         if type(currentpage) == type(PostPage()):
             templatefile = 'postpage.html'
         else:    
             if type(currentpage) == type(EventPage()):
                 templatefile = 'eventpage.html'
+            else:    
+                if type(currentpage) == type(VolunteerPage()):
+                    templatefile = 'volunteerpage.html'
+                    
+                    if request.method == 'POST': # If the form has been submitted...
+                        currentpage.form = VolunteerForm(request.POST) # A form bound to the POST data
+                        if currentpage.form.is_valid(): # All validation rules pass
+                            currentpage.form.save()
+                            return HttpResponseRedirect(currentpage.get_absolute_url() + "/thanks") # Redirect after POST
     t = loader.get_template(templatefile)
     c = None
     c = Context({
         'currentpage' : currentpage,
-        'currentaccount' : currentaccount
+        'currentaccount' : currentaccount,
+        'has_side_content' : has_side_content
     })
     return HttpResponse(t.render(c))
 
@@ -59,6 +57,25 @@ def post(request, path, slug):
         'currentpage' : currentpage,
         'currentaccount' : currentaccount,
         'currentpost' : currentpost
+    })
+    return HttpResponse(t.render(c))
+
+def event(request, path, slug):
+    currentaccount = Account.GetCurrentAccount(request)
+    print currentaccount
+    currentpage = currentaccount.GetPage(path).Cast()
+    print currentpage
+    currentevent = currentpage.GetEvent(slug)
+    print currentevent
+    #allpages = account.pages
+    
+    templatefile = 'event.html'
+    t = loader.get_template(templatefile)
+    c = None
+    c = Context({
+        'currentpage' : currentpage,
+        'currentaccount' : currentaccount,
+        'currentevent' : currentevent
     })
     return HttpResponse(t.render(c))
 
@@ -134,6 +151,7 @@ class PostForm(forms.Form):
     message = forms.CharField()
     sender = forms.EmailField()
     cc_myself = forms.BooleanField(required=False)
+
 
 
 def postadmin(request):

@@ -1,0 +1,56 @@
+{% extends "adminbase.html" %}
+
+{% block header %}
+    <h1>Website Administration</h1>
+    <h2>Home</h2>
+{% endblock %}
+
+{% block sidebar %}
+    
+{% endblock %}
+
+{% block content %}
+    <div class=section>
+    <div class=section_header>
+	    <h3>
+	        Posts
+	    </h3>
+	    <h4>
+	       <a href="{{ currentpage.get_admin_add_post_url }}">Add new post</a>
+	    </h4>
+	    <p class=clearboth></p>
+	    </div>
+	    <table id=pages>
+	        <tr>
+	            <th>
+	               Published Date
+	            </th>
+	            <th>
+	               Title
+	            </th>
+	            <th>
+	               Author
+	            </th>
+	        </tr>
+	        {% for post in currentpage.posts %}
+	            <tr>
+	                <td>
+	                    {{ post.published_at }}
+	                </td>
+	                <td>
+	                    {{ post.title }}
+	                </td>
+	                <td>
+	                    {{ post.author }}
+	                </td>
+	                <td>
+	                    <a href="{{ post.get_absolute_url }}">View</a>
+	                </td>
+	                <td>
+	                    <a href="{{ post.get_admin_edit_url }}">Edit</a>
+	                </td>
+	            </tr>
+	        {% endfor %} 
+	    </table>
+    </div>
+{% endblock %}

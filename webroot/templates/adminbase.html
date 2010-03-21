@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <title>
+            {% block title %}
+                Website Administration
+            {% endblock %}
+        </title>
+        <link href="/css/adminbase.css" rel="stylesheet" type="text/css" /> 
+        <script type="text/javascript" src="/js/tiny_mce/tiny_mce.js"></script>
+        
+    </head>
+    <body>
+        <div id=wrapper>
+            <div id=navigation>
+                {% block navigation %}
+	                <p>
+	                    <a href="/manager/controlpanel">Control Panel</a>
+	                    <a href="/manager/statistics">Statistics</a>
+	                    <a href="/manager/logout">Logout</a>
+	                </p>
+                {% endblock %}
+            </div>
+            <div id=header>
+                {% block header %}
+	                <h1>{{ currentaccount.title }}</h1>
+	                <h2>Website Administration</h2>
+                {% endblock %}
+            </div>
+            <div id=content>
+                {% block content %}
+	                <div class=section>
+	                    <h3>Header</h3>
+	                    <p>Test</p>
+	                    <p>Test</p>
+	                </div>
+	                <div class=section>
+	                    <h3>Header</h3>
+	                    <p>Test</p>
+	                    <p>Test</p>
+	                </div>
+	                <p>Test</p>
+	                <p>Test</p>
+	                <p>Test</p>
+	                <p>Test</p>
+	                <p>Test</p>
+	                <p>Test</p>
+	                <p>Test</p>
+                {% endblock %}
+            </div>
+            <div id=footer>
+            
+            </div>
+        </div>
+    </body>
+</html>

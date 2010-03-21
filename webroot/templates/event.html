@@ -2,7 +2,7 @@
 
 {% block header %}
     <h1>{{ currentpage.title }}</h1>
-    <h2>[ Post ]</h2>
+    <h2>[ Event ]</h2>
 {% endblock %}
 
 {% block sidebar %}
@@ -10,8 +10,6 @@
 {% endblock %}
 
 {% block content %}
-	<div>
-	    <h3>{{ currentpost.title }}</h3>
-	    <p>{{ currentpost.content|safe }}</p>
-	</div>
+	    <h3>{{ currentevent.name }}</h3>
+	    <p>{{ currentpost.description }}</p>
 {% endblock %}
