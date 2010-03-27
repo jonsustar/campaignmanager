@@ -262,7 +262,7 @@ class VolunteerOption(models.Model):
         return self.title
     
 class Volunteer(models.Model):
-    first_name = models.CharField(max_length=50, blank=True, null=True)
+    first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50, blank=True, null=True)
     phone = models.CharField(max_length=50, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
@@ -275,7 +275,7 @@ class Volunteer(models.Model):
     selected_options = models.ManyToManyField(VolunteerOption, blank=True, null=True)
     
     def __unicode__(self):
-        return self.first_name, " ", self.last_name
+        return self.first_name
     
 EMAIL_SUBSCRIPTION_SOURCE_OPTIONS = (('website_volunteer_form','Website Volunteer Form'), ('website_email_form','Website E-mail Form'))
     
@@ -295,9 +295,14 @@ class EmailSubscriber(models.Model):
 #    image = models.ImageField(upload_to='photos')
 #    account = models.ForeignKey(Account)
 
+from django.forms import MultipleChoiceField, CheckboxSelectMultiple , ModelMultipleChoiceField
+
 class VolunteerForm(ModelForm):
+    selected_options = ModelMultipleChoiceField(queryset=VolunteerOption.objects.filter(is_enabled=True), widget=CheckboxSelectMultiple())
+    
     class Meta:
         model = Volunteer
+        exclude = ('account','is_active',)
     
 class EmailSubscriberForm(ModelForm):    
     class Meta:

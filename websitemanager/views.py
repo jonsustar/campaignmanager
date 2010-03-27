@@ -30,9 +30,11 @@ def page(request, path):
             else:    
                 if type(currentpage) == type(VolunteerPage()):
                     templatefile = 'volunteerpage.html'
+                    volunteer = Volunteer()
+                    volunteer.account = currentaccount
                     
                     if request.method == 'POST': # If the form has been submitted...
-                        currentpage.form = VolunteerForm(request.POST) # A form bound to the POST data
+                        currentpage.form = VolunteerForm(request.POST, instance=volunteer) # A form bound to the POST data
                         if currentpage.form.is_valid(): # All validation rules pass
                             currentpage.form.save()
                             return HttpResponseRedirect(currentpage.volunteer_thanks_url) # Redirect after POST
