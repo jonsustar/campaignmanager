@@ -48,5 +48,6 @@ urlpatterns = patterns('',
     url(r'^(?P<path>[-\w]+)/post/(?P<slug>[-\w]+)$', 'campaignmanager.websitemanager.views.post', name='post_view'),
     #url(r'^(?P<path>[-\w]+)/thanks$', 'campaignmanager.websitemanager.views.volunteersubmit', name='volunteersubmit'),
     url(r'^(?P<path>[-\w]+)$', 'campaignmanager.websitemanager.views.page', name='page_view'),
+    url(r'^', 'campaignmanager.websitemanager.views.page', { 'path' : None }, name='page_view'),
     #(r'^conversations','twibbots.views.conversations')
 )

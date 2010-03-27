@@ -8,7 +8,11 @@ from django.contrib.sites.models import Site
 
 def page(request, path):
     currentaccount = Account.GetCurrentAccount(request)
-    currentpage = currentaccount.GetPage(path).Cast()
+    
+    if path == None:
+        currentpage = currentaccount.GetHomePage().Cast()
+    else:
+        currentpage = currentaccount.GetPage(path).Cast()
     has_side_content = False;
     #allpages = account.pages
     
@@ -31,7 +35,17 @@ def page(request, path):
                         currentpage.form = VolunteerForm(request.POST) # A form bound to the POST data
                         if currentpage.form.is_valid(): # All validation rules pass
                             currentpage.form.save()
-                            return HttpResponseRedirect(currentpage.get_absolute_url() + "/thanks") # Redirect after POST
+                            return HttpResponseRedirect(currentpage.volunteer_thanks_url) # Redirect after POST
+                else:
+                    if type(currentpage) == type(EmailSubscriptionPage()):
+                        templatefile = 'emailsubscriptionpage.html'
+                        subscriber = EmailSubscriber()
+                        subscriber.account = currentaccount
+                        if request.method == 'POST': # If the form has been submitted...
+                            currentaccount.email_subscriber_form = EmailSubscriberForm(request.POST, instance=subscriber) # A form bound to the POST data
+                            if currentaccount.email_subscriber_form.is_valid(): # All validation rules pass
+                                currentaccount.email_subscriber_form.save()
+                                return HttpResponseRedirect(currentpage.email_subscription_thanks_url) # Redirect after POST
     t = loader.get_template(templatefile)
     c = None
     c = Context({

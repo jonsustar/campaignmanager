@@ -2,7 +2,7 @@
     <head>
         <title>
             {% block title %}
-                {{ currentaccount.name }}: {{ currentpage.title }}
+                {{ currentaccount.website_title }}: {{ currentpage.title }}
             {% endblock %}
         </title>
         <link href="/css/base.css" rel="stylesheet" type="text/css" /> 
@@ -15,8 +15,8 @@
             <div id=navigation>
                 {% block navigation %}
                     <p>
-                        {% for page in currentaccount.pages %}
-                            <a href="{{ page.get_absolute_url }}"{% ifequal page.slug currentpage.slug %}class=active{% endifequal %}>{{ page.title }}</a>                      
+                        {% for page in currentaccount.primary_pages %}
+                            <a href="{{ page.get_absolute_url }}"{% ifequal page.slug currentpage.slug %}class=active{% endifequal %}>{{ page.short_title }}</a>                      
                         {% endfor %}
                     </p>
                 {% endblock %}
@@ -36,14 +36,22 @@
                         {% endblock %}
                 </div>
             </div>
+            <div id=email_signup> 
+            {% block emailsignup %}
+            <form method="post" action="{{ currentaccount.get_email_subscriber_action_url }}">
+                <p>
+	            {% for field in currentaccount.get_email_subscriber_form %}
+		            <b>{{ field.label_tag }}</b>: {{ field }}
+		        {% endfor %}
+		        <input type="submit" value="Submit" />
+		        </p>
+	        </form>
+			{% endblock %}
+            </div>
             <div id=footer>
-                <div id=campaign_box>
-                    <p>Paid for by John Doe</p>
-                    <P>123 Main Street, Cleveland, OH</p>
-                                    {% block footer %}
-                
+                {% block footer %}
+                    {{ currentaccount.footer_content }}
                 {% endblock %}
-                </div>
             </div>
         </div>
     </body>

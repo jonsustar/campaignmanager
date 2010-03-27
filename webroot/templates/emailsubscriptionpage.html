@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h1>{{ currentpage.title }}</h1>
+    <h2>[ Volunteer Page ]</h2>
+{% endblock %}
+
+{% block content %}
+    {{ currentpage.main_content|safe }}
+    
+    <div>
+     <form method="post">
+           <table>
+               {{ currentaccount.get_email_subscriber_form.as_table }}
+           </table>
+           <p class=button><input type="submit" value="Submit" /></p>
+        </form>
+        </div>
+{% endblock %}
+
+{% block side_content %}
+    {{ currentpage.side_content|safe }}
+{% endblock %}
+
+{% block emailsignup %}
+
+{% endblock %}

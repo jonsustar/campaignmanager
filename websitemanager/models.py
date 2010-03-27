@@ -16,6 +16,7 @@ class Account(models.Model):
     is_enabled = models.BooleanField(default=True)
     analytics_code = models.TextField(blank=True, null=True)
     email_subscriber_thanks_url = models.CharField(max_length=100, blank=True, null=True)
+    footer_content = models.TextField()
     email_subscriber_form = None
     
     def __unicode__(self):
@@ -25,11 +26,15 @@ class Account(models.Model):
         return "/manager/account/edit"
     
     def get_email_subscriber_form(self):
-        if self.email_subscriber_form == None:
-            subscriber = EmailSubscriber()
-            subscriber.account = self.account;
-            self.email_subscriber_form = EmailSubscriberForm(instance=subscriber)
+        if self.email_subscriber_form is None:
+            #subscriber = EmailSubscriber()
+            #subscriber.source = 'website_email_form'
+            #subscriber.account = self.account
+            self.email_subscriber_form = EmailSubscriberForm()
         return self.email_subscriber_form
+    
+    def get_email_subscriber_action_url(self):
+        return EmailSubscriptionPage.objects.get(account=self).get_absolute_url()
     
     def domains(self):
         return self.domain_set.all()
@@ -40,6 +45,15 @@ class Account(models.Model):
     def pages(self):
         return self.page_set.order_by('ordinal')
     
+    def primary_pages(self):
+        return self.page_set.filter(navigation_area='primary')
+    
+    def secondary_pages(self):
+        return self.page_set.filter(navigation_area='secondary')
+    
+    def tertiary_pages(self):
+        return self.page_set.filter(navigation_area='tertiary')
+    
     def GetCurrentAccount(request):
         host = request.get_host()
         print host
@@ -49,6 +63,9 @@ class Account(models.Model):
     def GetPage(self, current_path):
         print current_path
         return Page.objects.get(account=self, slug=current_path)
+    
+    def GetHomePage(self):
+        return Page.objects.get(account=self, is_home_page=True)
     
     def GetUser(self, current_username):
         return AccountUser.objects.get(account=self, username=current_username)
@@ -72,6 +89,7 @@ class Page(models.Model):
     account = models.ForeignKey(Account)
     ordinal = models.IntegerField(default=0)
     is_enabled = models.BooleanField(default=True)
+    is_home_page = models.BooleanField(default=False)
     navigation_area = models.CharField(max_length=20, choices=NAVIGATION_AREA_OPTIONS, blank=True, null=True)
     parent_page = models.ForeignKey('self', blank=True, null=True)
     type = None
@@ -80,10 +98,11 @@ class Page(models.Model):
         return self.title
     
     def get_absolute_url(self):
+        if self.is_home_page:
+            return "/"
         if self.pagetype() == 'externalpage':
             return self.externalpage.external_url
-        else:
-            return "/" + self.slug
+        return "/" + self.slug
     
     def get_admin_edit_url(self):
         return "/manager/pages/" + self.slug + "/edit"
@@ -109,8 +128,12 @@ class Page(models.Model):
                             page = self.volunteerpage
                             self.type = "volunteerpage"
                         except:
-                            page = self
-                            self.type = "page"
+                            try:
+                                page = self.emailsubscriptionpage
+                                self.type = "emailsubscriptionpage"
+                            except:
+                                page = self
+                                self.type = "page"
         print "Type:" + self.type
         return page
     
@@ -137,6 +160,10 @@ class VolunteerPage(Page):
             newvolunteer.account = self.account;
             self.form = VolunteerForm(instance=newvolunteer)
         return self.form
+    
+class EmailSubscriptionPage(Page):
+    main_content = models.TextField()
+    email_subscription_thanks_url = models.CharField(max_length=100, blank=True, null=True)
     
 EVENT_DISPLAY_OPTIONS = (('list','list'), ('calendar','calendar'))    
     
@@ -231,6 +258,9 @@ class VolunteerOption(models.Model):
     is_enabled = models.BooleanField(default=True)
     account = models.ForeignKey(Account)
     
+    def __unicode__(self):
+        return self.title
+    
 class Volunteer(models.Model):
     first_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50, blank=True, null=True)
@@ -244,13 +274,20 @@ class Volunteer(models.Model):
     account = models.ForeignKey(Account)
     selected_options = models.ManyToManyField(VolunteerOption, blank=True, null=True)
     
+    def __unicode__(self):
+        return self.first_name, " ", self.last_name
+    
 EMAIL_SUBSCRIPTION_SOURCE_OPTIONS = (('website_volunteer_form','Website Volunteer Form'), ('website_email_form','Website E-mail Form'))
     
 class EmailSubscriber(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, blank=True, null=True)
     email = models.EmailField()
-    source = models.CharField(max_length=20, choices=EMAIL_SUBSCRIPTION_SOURCE_OPTIONS)
+    source = models.CharField(max_length=20, choices=EMAIL_SUBSCRIPTION_SOURCE_OPTIONS, blank=True, null=True)
     is_active = models.BooleanField(default=True)
+    account = models.ForeignKey(Account)
+    
+    def __unicode__(self):
+        return self.email
     
 #class Photo(models.Model):
 #    title = models.CharField(max_length=50)
@@ -262,6 +299,7 @@ class VolunteerForm(ModelForm):
     class Meta:
         model = Volunteer
     
-class EmailSubscriberForm(ModelForm):
+class EmailSubscriberForm(ModelForm):    
     class Meta:
         model = EmailSubscriber
+        fields = ['name', 'email']
