@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 AFTER_POST_REDIRECT_URL = '/manager/controlpanel'
 
-#@login_required
+@login_required
 def controlpanel(request):
     currentaccount = Account.GetCurrentAccount(request)
 
@@ -22,6 +22,7 @@ def controlpanel(request):
     })
     return HttpResponse(t.render(c))
 
+@login_required
 def accountedit(request):
     currentaccount = Account.GetCurrentAccount(request)
 
@@ -32,9 +33,7 @@ def accountedit(request):
             return HttpResponseRedirect(AFTER_POST_REDIRECT_URL) # Redirect after POST
     else:
         form = AccountForm(instance=currentaccount) # An unbound form
-
-
-
+        
     templatefile = 'accountadmin.html'
     t = loader.get_template(templatefile)
     c = None
@@ -44,6 +43,7 @@ def accountedit(request):
     })
     return HttpResponse(t.render(c))
 
+@login_required
 def useradd(request):
     currentaccount = Account.GetCurrentAccount(request)
     currentuser = AccountUser()
@@ -69,6 +69,7 @@ def useradd(request):
     })
     return HttpResponse(t.render(c)) 
 
+@login_required
 def useredit(request, username):
     currentaccount = Account.GetCurrentAccount(request)
     currentuser = currentaccount.GetUser(username)
@@ -93,6 +94,7 @@ def useredit(request, username):
     })
     return HttpResponse(t.render(c)) 
 
+@login_required
 def pageadd(request):
     currentaccount = Account.GetCurrentAccount(request)
     currentpage = Page()
@@ -157,6 +159,7 @@ def pageadd(request):
     })
     return HttpResponse(t.render(c))  
 
+@login_required
 def pageedit(request, pageslug):
     currentaccount = Account.GetCurrentAccount(request)
     currentpage = currentaccount.GetPage(pageslug).Cast()
@@ -217,6 +220,7 @@ def pageedit(request, pageslug):
     })
     return HttpResponse(t.render(c))  
 
+@login_required
 def posts(request, pageslug):
     currentaccount = Account.GetCurrentAccount(request)
     currentpage = currentaccount.GetPage(pageslug).Cast()
@@ -231,6 +235,7 @@ def posts(request, pageslug):
     })
     return HttpResponse(t.render(c))  
 
+@login_required
 def postedit(request, pageslug, postslug):
     currentaccount = Account.GetCurrentAccount(request)
     currentpage = currentaccount.GetPage(pageslug).Cast()
@@ -258,6 +263,7 @@ def postedit(request, pageslug, postslug):
     })
     return HttpResponse(t.render(c))  
 
+@login_required
 def postadd(request, pageslug):
     currentaccount = Account.GetCurrentAccount(request)
     currentpage = currentaccount.GetPage(pageslug).Cast()
@@ -286,6 +292,7 @@ def postadd(request, pageslug):
     })
     return HttpResponse(t.render(c))  
 
+@login_required
 def events(request, pageslug):
     currentaccount = Account.GetCurrentAccount(request)
     currentpage = currentaccount.GetPage(pageslug).Cast()
@@ -300,6 +307,7 @@ def events(request, pageslug):
     })
     return HttpResponse(t.render(c)) 
 
+@login_required
 def eventedit(request, pageslug, eventslug):
     currentaccount = Account.GetCurrentAccount(request)
     currentpage = currentaccount.GetPage(pageslug).Cast()
@@ -327,6 +335,7 @@ def eventedit(request, pageslug, eventslug):
     })
     return HttpResponse(t.render(c))  
 
+@login_required
 def eventadd(request, pageslug):
     currentaccount = Account.GetCurrentAccount(request)
     currentpage = currentaccount.GetPage(pageslug).Cast()

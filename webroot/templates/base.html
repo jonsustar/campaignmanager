@@ -1,8 +1,10 @@
 <html>
     <head>
+        <meta name="description" content="{{ currentpage.get_description }}">
+        <meta name="keywords" content="{{ currentpage.get_keywords }}">
         <title>
             {% block title %}
-                {{ currentaccount.website_title }}: {{ currentpage.title }}
+                {{ currentaccount.website_title }} | {{ currentpage.title }}
             {% endblock %}
         </title>
         <link href="/css/base.css" rel="stylesheet" type="text/css" /> 
@@ -10,7 +12,7 @@
     <body>
         <div id=wrapper>
             <div id=header>
-
+                <img src="img/header_title.gif"/>
             </div>
             <div id=navigation>
                 {% block navigation %}
@@ -21,37 +23,51 @@
                     </p>
                 {% endblock %}
             </div>
-            <div id=content>
-                {% if has_side_content %}
-	                <div id=side_content>
-	                {% block side_content %}
-	                
-	                {% endblock %}
-	                </div>
-                {% endif %}
-                <div id=main_content>
-                    <h1>{{ currentpage.title }}</h1>
-	                    {% block content %}
+            <div id=content_wrapper>
+                <div id=content>
+	                {% if has_side_content %}
+	                    <div id=side_content>
+	                    {% block side_content %}
+	                    
+	                    {% endblock %}
+	                    </div>
+	                {% endif %}
+	                <div id=main_content>
+	                    <h1>{{ currentpage.title }}</h1>
+                        {% block content %}
                 
                         {% endblock %}
+	                </div>
                 </div>
             </div>
-            <div id=email_signup> 
-            {% block emailsignup %}
-            <form method="post" action="{{ currentaccount.get_email_subscriber_action_url }}">
-                <p>
-	            {% for field in currentaccount.get_email_subscriber_form %}
-		            <b>{{ field.label_tag }}</b>: {{ field }}
-		        {% endfor %}
-		        <input type="submit" value="Submit" />
-		        </p>
-	        </form>
-			{% endblock %}
+            <div id=pre_footer>
+            
             </div>
             <div id=footer>
-                {% block footer %}
-                    {{ currentaccount.footer_content }}
-                {% endblock %}
+                <div id=connect_box>
+                    <h3>
+                        Connect with Tim:
+                    </h3>
+                    <ul>
+                        <li><a href="#"><img src="img/facebook_icon.png"/> Facebook</a></li>
+                        <li><a href="#"><img src="img/linkedin_icon.png"/> LinkedIn</a></li>
+                        <li><a href="#"><img src="img/twitter_icon.png"/> Twitter</a></li>
+                </div>
+                <div id=email_box>
+                    <h3>
+                        Sign-up for e-mail updates:
+                    </h3>
+                    <form method="post" action="{{ currentaccount.get_email_subscriber_action_url }}">
+                        <input id="id_name" type="text" name="name" maxlength="100" />
+                        <input id="id_email" type="text" name="email" maxlength="75" />
+                        <input type="submit" value="Sign-up!" />
+                    </form>
+                </div>
+                <div id=disclaimer>
+                    <p>
+                        <span id=paid>Paid for by asdf</span>
+                    </p>
+                </div>
             </div>
         </div>
     </body>

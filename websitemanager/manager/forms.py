@@ -14,7 +14,7 @@ class AccountUserForm(ModelForm):
         
 class ContentPageForm(ModelForm):
     main_content = CharField(widget=TinyMCE(attrs={'cols': 55, 'rows': 15},))
-    side_content = CharField(widget=TinyMCE(attrs={'cols': 55, 'rows': 15},))
+    side_content = CharField(widget=TinyMCE(attrs={'cols': 55, 'rows': 15},), required=False)
     class Meta:
         model = ContentPage
 

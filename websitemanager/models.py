@@ -84,8 +84,8 @@ class Page(models.Model):
     title = models.CharField(max_length=100)
     short_title = models.CharField(max_length=100)
     slug = models.SlugField()
-    description = models.TextField()
-    keywords = models.TextField()
+    description = models.TextField(blank=True, null=True)
+    keywords = models.TextField(blank=True, null=True)
     account = models.ForeignKey(Account)
     ordinal = models.IntegerField(default=0)
     is_enabled = models.BooleanField(default=True)
@@ -107,6 +107,17 @@ class Page(models.Model):
     def get_admin_edit_url(self):
         return "/manager/pages/" + self.slug + "/edit"
         
+    def get_description(self):
+        if self.description != None and len(self.description) > 0:
+            return self.description
+        return self.account.description
+    
+    def get_keywords(self):
+        combined_keywords = ""
+        if self.keywords != None and len(self.keywords) > 0:
+            combined_keywords = self.keywords + ", " + self.account.keywords
+        return self.account.keywords
+    
     def Cast(self):
         try:
             page = self.contentpage
@@ -273,6 +284,9 @@ class Volunteer(models.Model):
     is_active = models.BooleanField(default=True)
     account = models.ForeignKey(Account)
     selected_options = models.ManyToManyField(VolunteerOption, blank=True, null=True)
+    activated_at = models.DateTimeField(default=datetime.now())
+    deactivated_at = models.DateTimeField(blank=True, null=True)
+    deactivated_reason = models.TextField(blank=True, null=True)
     
     def __unicode__(self):
         return self.first_name
@@ -284,6 +298,10 @@ class EmailSubscriber(models.Model):
     email = models.EmailField()
     source = models.CharField(max_length=20, choices=EMAIL_SUBSCRIPTION_SOURCE_OPTIONS, blank=True, null=True)
     is_active = models.BooleanField(default=True)
+    activated_at = models.DateTimeField(default=datetime.now())
+    deactivated_at = models.DateTimeField(blank=True, null=True)
+    deactivated_reason = models.TextField(blank=True, null=True)
+    
     account = models.ForeignKey(Account)
     
     def __unicode__(self):
@@ -298,11 +316,11 @@ class EmailSubscriber(models.Model):
 from django.forms import MultipleChoiceField, CheckboxSelectMultiple , ModelMultipleChoiceField
 
 class VolunteerForm(ModelForm):
-    selected_options = ModelMultipleChoiceField(queryset=VolunteerOption.objects.filter(is_enabled=True), widget=CheckboxSelectMultiple())
+    selected_options = ModelMultipleChoiceField(queryset=VolunteerOption.objects.filter(is_enabled=True), widget=CheckboxSelectMultiple(), label='Volunteer opportunities')
     
     class Meta:
         model = Volunteer
-        exclude = ('account','is_active',)
+        exclude = ('account','is_active','activated_at','deactivated_at','deactivated_reason')
     
 class EmailSubscriberForm(ModelForm):    
     class Meta:
